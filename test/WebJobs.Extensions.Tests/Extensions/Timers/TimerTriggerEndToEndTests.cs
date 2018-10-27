@@ -4,7 +4,7 @@
 using System;
 using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs.Extensions.Tests.Common;
-using Microsoft.Azure.WebJobs.Extensions.Timers;
+using Microsoft.Azure.WebJobs.Extensions.ServiceBusSession;
 using Microsoft.Azure.WebJobs.Host.Timers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;

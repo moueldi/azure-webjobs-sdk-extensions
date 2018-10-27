@@ -4,7 +4,7 @@
 using System;
 using System.Globalization;
 
-namespace Microsoft.Azure.WebJobs.Extensions.Timers
+namespace Microsoft.Azure.WebJobs.Extensions.ServiceBusSession
 {
     /// <summary>
     /// A simple constant interval scheduling strategy.

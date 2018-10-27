@@ -9,19 +9,19 @@ using Microsoft.Extensions.Logging;
 
 namespace Microsoft.Azure.WebJobs.Extensions.ServiceBusSession.Bindings
 {
-    internal class TimerTriggerAttributeBindingProvider : ITriggerBindingProvider
+    internal class SessionTriggerAttributeBindingProvider : ITriggerBindingProvider
     {
-        private readonly TimersOptions _options;
+        private readonly HandlerOptions _options;
         private readonly INameResolver _nameResolver;
         private readonly ILogger _logger;
-        private readonly ScheduleMonitor _scheduleMonitor;
+        
 
-        public TimerTriggerAttributeBindingProvider(TimersOptions options, INameResolver nameResolver, ILogger logger, ScheduleMonitor scheduleMonitor)
+        public SessionTriggerAttributeBindingProvider(HandlerOptions options, INameResolver nameResolver, ILogger logger)
         {
             _options = options;
             _nameResolver = nameResolver;
             _logger = logger;
-            _scheduleMonitor = scheduleMonitor;
+            
         }
 
         public Task<ITriggerBinding> TryCreateAsync(TriggerBindingProviderContext context)
@@ -32,21 +32,21 @@ namespace Microsoft.Azure.WebJobs.Extensions.ServiceBusSession.Bindings
             }
 
             ParameterInfo parameter = context.Parameter;
-            TimerTriggerAttribute timerTriggerAttribute = parameter.GetCustomAttribute<TimerTriggerAttribute>(inherit: false);
+            SessionTriggerAttribute sessionTriggerAttribute = parameter.GetCustomAttribute<SessionTriggerAttribute>(inherit: false);
 
-            if (timerTriggerAttribute == null)
+            if (sessionTriggerAttribute == null)
             {
                 return Task.FromResult<ITriggerBinding>(null);
             }
 
-            if (parameter.ParameterType != typeof(TimerInfo))
+            if (parameter.ParameterType != typeof(SessionInfo))
             {
-                throw new InvalidOperationException(string.Format("Can't bind TimerTriggerAttribute to type '{0}'.", parameter.ParameterType));
+                throw new InvalidOperationException(string.Format("Can't binds SessionTriggerAttribute to type '{0}'.", parameter.ParameterType));
             }
 
-            TimerSchedule schedule = TimerSchedule.Create(timerTriggerAttribute, _nameResolver);
+           
 
-            return Task.FromResult<ITriggerBinding>(new TimerTriggerBinding(parameter, timerTriggerAttribute, schedule, _options, _logger, _scheduleMonitor));
+            return Task.FromResult<ITriggerBinding>(new SessionTriggerBinding(parameter, sessionTriggerAttribute, _options, _logger));
         }
     }
 }

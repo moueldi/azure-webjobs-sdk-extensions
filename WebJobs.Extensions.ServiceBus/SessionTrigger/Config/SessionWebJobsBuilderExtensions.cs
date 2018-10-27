@@ -10,34 +10,34 @@ using Microsoft.Extensions.DependencyInjection;
 namespace Microsoft.Extensions.Hosting
 {
     /// <summary>
-    /// Extension methods for Timers integration
+    /// Extension methods for sessions messages integration
     /// </summary>
-    public static class TimerWebJobsBuilderExtensions
+    public static class SessionWebJobsBuilderExtensions
     {
         /// <summary>
-        /// Adds the Timer extension to the provided <see cref="IWebJobsBuilder"/>.
+        /// Adds the Service bus session trigger extension to the provided <see cref="IWebJobsBuilder"/>.
         /// </summary>
         /// <param name="builder">The <see cref="IWebJobsBuilder"/> to configure.</param>
-        public static IWebJobsBuilder AddTimers(this IWebJobsBuilder builder)
+        public static IWebJobsBuilder AddServiceBusSessionTrigger(this IWebJobsBuilder builder)
         {
             if (builder == null)
             {
                 throw new ArgumentNullException(nameof(builder));
             }
 
-            builder.AddExtension<TimersExtensionConfigProvider>()
-                .BindOptions<TimersOptions>();
-            builder.Services.AddSingleton<ScheduleMonitor, StorageScheduleMonitor>();
+            builder.AddExtension<SessionMessageExtensionConfigProvider>()
+                .BindOptions<HandlerOptions>();
+            
 
             return builder;
         }
 
         /// <summary>
-        /// Adds the Timer extension to the provided <see cref="IWebJobsBuilder"/>.
+        /// Adds the sessions extension to the provided <see cref="IWebJobsBuilder"/>.
         /// </summary>
         /// <param name="builder">The <see cref="IWebJobsBuilder"/> to configure.</param>
-        /// <param name="configure">An <see cref="Action{TimersOptions}"/> to configure the provided <see cref="TimersOptions"/>.</param>
-        public static IWebJobsBuilder AddTimers(this IWebJobsBuilder builder, Action<TimersOptions> configure)
+        /// <param name="configure">An <see cref="Action{TimersOptions}"/> to configure the provided <see cref="HandlerOptions"/>.</param>
+        public static IWebJobsBuilder AddTimers(this IWebJobsBuilder builder, Action<HandlerOptions> configure)
         {
             if (builder == null)
             {
@@ -49,7 +49,7 @@ namespace Microsoft.Extensions.Hosting
                 throw new ArgumentNullException(nameof(configure));
             }
 
-            builder.AddTimers();
+            builder.AddServiceBusSessionTrigger();
             builder.Services.Configure(configure);
 
             return builder;

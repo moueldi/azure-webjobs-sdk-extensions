@@ -2,7 +2,7 @@
 // Licensed under the MIT License. See License.txt in the project root for license information.
 
 using System;
-using Microsoft.Azure.WebJobs.Extensions.Timers;
+using Microsoft.Azure.WebJobs.Extensions.ServiceBusSession;
 using Xunit;
 
 namespace Microsoft.Azure.WebJobs.Extensions.Tests.Timers.Scheduling

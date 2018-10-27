@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Azure.WebJobs.Host;
 
-namespace Microsoft.Azure.WebJobs.Extensions.Timers
+namespace Microsoft.Azure.WebJobs.Extensions.ServiceBusSession
 {
     /// <summary>
     /// A timer scheduling strategy used with <see cref="TimerTriggerAttribute"/> for schedule

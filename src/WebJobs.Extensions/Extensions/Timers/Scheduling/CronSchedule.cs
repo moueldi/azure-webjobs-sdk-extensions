@@ -5,7 +5,7 @@ using System;
 using System.Globalization;
 using NCrontab;
 
-namespace Microsoft.Azure.WebJobs.Extensions.Timers
+namespace Microsoft.Azure.WebJobs.Extensions.ServiceBusSession
 {
     /// <summary>
     /// A scheduling strategy based on crontab expressions. <a href="http://en.wikipedia.org/wiki/Cron#CRON_expression"/>

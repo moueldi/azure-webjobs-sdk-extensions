@@ -36,14 +36,15 @@ namespace ExtensionsSample
                    {
                        o.RootPath = filesTestPath;
                    })
+
                    .AddTimers()
                    .AddMobileApps()
                    .AddTwilioSms()
                    .AddCosmosDB()
                    .AddSendGrid(o =>
                    {
-                       o.ToAddress = new EmailAddress("admin@webjobssamples.com", "WebJobs Extensions Samples");
-                       o.FromAddress = new EmailAddress("samples@webjobssamples.com", "WebJobs Extensions Samples");
+                       o.ToAddress = new EmailAddress("mouedi@gmail.com", "WebJobs Extensions Samples");
+                       o.FromAddress = new EmailAddress("noreply@gmail.com", "WebJobs Extensions Samples");
                    });
                })
                .ConfigureLogging(b =>

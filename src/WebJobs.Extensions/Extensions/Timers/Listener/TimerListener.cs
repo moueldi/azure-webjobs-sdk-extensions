@@ -9,7 +9,7 @@ using Microsoft.Azure.WebJobs.Host.Executors;
 using Microsoft.Azure.WebJobs.Host.Listeners;
 using Microsoft.Extensions.Logging;
 
-namespace Microsoft.Azure.WebJobs.Extensions.Timers.Listeners
+namespace Microsoft.Azure.WebJobs.Extensions.ServiceBusSession.Listeners
 {
     [Singleton(Mode = SingletonMode.Listener)]
     internal sealed class TimerListener : IListener

@@ -13,7 +13,7 @@ using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Newtonsoft.Json;
 
-namespace Microsoft.Azure.WebJobs.Extensions.Timers
+namespace Microsoft.Azure.WebJobs.Extensions.ServiceBusSession
 {
     /// <summary>
     /// <see cref="ScheduleMonitor"/> that stores schedule information in blob storage.

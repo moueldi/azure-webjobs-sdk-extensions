@@ -6,7 +6,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace Microsoft.Azure.WebJobs.Extensions.Timers
+namespace Microsoft.Azure.WebJobs.Extensions.ServiceBusSession
 {
     /// <summary>
     /// This class is used to monitor and record schedule occurrences. It stores

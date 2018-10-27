@@ -4,7 +4,7 @@
 using System;
 using System.Linq;
 using Microsoft.Azure.WebJobs.Extensions.Tests.Common;
-using Microsoft.Azure.WebJobs.Extensions.Timers;
+using Microsoft.Azure.WebJobs.Extensions.ServiceBusSession;
 using Xunit;
 
 namespace Microsoft.Azure.WebJobs.Extensions.Tests.Extensions.Timers.Scheduling

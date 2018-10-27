@@ -9,11 +9,11 @@ namespace Microsoft.Azure.WebJobs
 {
     /// <summary>
     /// Attribute used to mark a job function that should be invoked periodically based on
-    /// a timer schedule. The trigger parameter type must be <see cref="TimerInfo"/>.
+    /// a timer schedule. The trigger parameter type must be <see cref="SessionInfo"/>.
     /// </summary>
     [AttributeUsage(AttributeTargets.Parameter)]
     [Binding]
-    public sealed class TimerTriggerAttribute : Attribute
+    public sealed class SessionTriggerAttribute : Attribute
     {
         /// <summary>
         /// Constructs a new instance based on the schedule expression passed in.
@@ -22,7 +22,7 @@ namespace Microsoft.Azure.WebJobs
         /// <a href="https://docs.microsoft.com/en-us/azure/azure-functions/functions-bindings-timer#cron-expressions"/> or a <see cref="TimeSpan"/>
         /// string (e.g. "00:30:00"). On Azure Functions, a TimeSpan string is only supported 
         /// when running on an App Service Plan.</param>
-        public TimerTriggerAttribute(string scheduleExpression)
+        public SessionTriggerAttribute(string scheduleExpression)
         {
             ScheduleExpression = scheduleExpression;
             UseMonitor = true;
@@ -32,7 +32,7 @@ namespace Microsoft.Azure.WebJobs
         /// Constructs a new instance using the specified <see cref="TimerSchedule"/> type.
         /// </summary>
         /// <param name="scheduleType">The type of schedule to use.</param>
-        public TimerTriggerAttribute(Type scheduleType)
+        public SessionTriggerAttribute(Type scheduleType)
         {
             ScheduleType = scheduleType;
             UseMonitor = true;

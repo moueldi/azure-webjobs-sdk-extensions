@@ -3,7 +3,7 @@
 
 using System;
 using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Extensions.Timers;
+using Microsoft.Azure.WebJobs.Extensions.ServiceBusSession;
 
 namespace WebJobsSandbox
 {

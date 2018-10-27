@@ -27,6 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\WebJobs.Extensions.ServiceBus\WebJobs.Extensions.ServiceBus.csproj" />
     <ProjectReference Include="..\WebJobs.Extensions.CosmosDB\WebJobs.Extensions.CosmosDB.csproj" />
     <ProjectReference Include="..\WebJobs.Extensions.MobileApps\WebJobs.Extensions.MobileApps.csproj" />
     <ProjectReference Include="..\WebJobs.Extensions.SendGrid\WebJobs.Extensions.SendGrid.csproj" />

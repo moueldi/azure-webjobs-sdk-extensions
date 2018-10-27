@@ -12,21 +12,21 @@ using Microsoft.Extensions.Options;
 
 namespace Microsoft.Azure.WebJobs.Extensions.Extensions.Timers
 {
-    [Extension("Timers")]
-    internal class TimersExtensionConfigProvider : IExtensionConfigProvider
+    [Extension("SessionMessages")]
+    internal class SessionMessageExtensionConfigProvider : IExtensionConfigProvider
     {
-        private readonly IOptions<TimersOptions> _options;
+        private readonly IOptions<HandlerOptions> _options;
         private readonly ILoggerFactory _loggerFactory;
         private readonly INameResolver _nameResolver;
-        private readonly ScheduleMonitor _scheduleMonitor;
+        
 
-        public TimersExtensionConfigProvider(IOptions<TimersOptions> options, ILoggerFactory loggerFactory,
-            INameResolver nameResolver, ScheduleMonitor scheduleMonitor)
+        public SessionMessageExtensionConfigProvider(IOptions<HandlerOptions> options, ILoggerFactory loggerFactory,
+            INameResolver nameResolver)
         {
             _options = options;
             _loggerFactory = loggerFactory;
             _nameResolver = nameResolver;
-            _scheduleMonitor = scheduleMonitor;
+          
         }
 
         public void Initialize(ExtensionConfigContext context)
@@ -36,10 +36,10 @@ namespace Microsoft.Azure.WebJobs.Extensions.Extensions.Timers
                 throw new ArgumentNullException("context");
             }
 
-            ILogger logger = _loggerFactory.CreateLogger(LogCategories.CreateTriggerCategory("Timer"));
-            var bindingProvider = new TimerTriggerAttributeBindingProvider(_options.Value, _nameResolver, logger, _scheduleMonitor);
+            ILogger logger = _loggerFactory.CreateLogger(LogCategories.CreateTriggerCategory("ServiceBus"));
+            var bindingProvider = new SessionTriggerAttributeBindingProvider(_options.Value, _nameResolver, logger);
 
-            context.AddBindingRule<TimerTriggerAttribute>()
+            context.AddBindingRule<SessionTriggerAttribute>()
                 .BindToTrigger(bindingProvider);
         }
     }

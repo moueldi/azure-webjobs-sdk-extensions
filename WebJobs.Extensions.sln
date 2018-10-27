@@ -45,6 +45,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebJobs.Extensions.Twilio.T
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebJobs.Extensions.MobileApps.Tests", "test\WebJobs.Extensions.MobileApps.Tests\WebJobs.Extensions.MobileApps.Tests.csproj", "{587D158D-D719-42EF-AE81-70E2E8142B46}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebJobs.Extensions.ServiceBus", "WebJobs.Extensions.ServiceBus\WebJobs.Extensions.ServiceBus.csproj", "{32BAABE0-9A2B-4F73-A69E-7701CE6AA1EA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,10 @@ Global
 		{587D158D-D719-42EF-AE81-70E2E8142B46}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{587D158D-D719-42EF-AE81-70E2E8142B46}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{587D158D-D719-42EF-AE81-70E2E8142B46}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32BAABE0-9A2B-4F73-A69E-7701CE6AA1EA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32BAABE0-9A2B-4F73-A69E-7701CE6AA1EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32BAABE0-9A2B-4F73-A69E-7701CE6AA1EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32BAABE0-9A2B-4F73-A69E-7701CE6AA1EA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

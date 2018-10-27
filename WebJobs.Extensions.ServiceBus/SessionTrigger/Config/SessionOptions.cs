@@ -4,9 +4,9 @@
 namespace Microsoft.Azure.WebJobs.Extensions.ServiceBusSession
 {
     /// <summary>
-    /// Options object for <see cref="TimerTriggerAttribute"/> decorated job functions.
+    /// Options object for <see cref="SessionTriggerAttribute"/> decorated job functions.
     /// </summary>
-    public class TimersOptions
+    public class HandlerOptions
     {
     }
 }

@@ -14,36 +14,34 @@ using Microsoft.Extensions.Logging;
 
 namespace Microsoft.Azure.WebJobs.Extensions.ServiceBusSession.Bindings
 {
-    internal class TimerTriggerBinding : ITriggerBinding
+    internal class SessionTriggerBinding : ITriggerBinding
     {
         private readonly ParameterInfo _parameter;
-        private readonly TimerTriggerAttribute _attribute;
-        private readonly TimerSchedule _schedule;
-        private readonly TimersOptions _options;
-        private readonly ILogger _logger;
-        private readonly ScheduleMonitor _scheduleMonitor;
+        private readonly SessionTriggerAttribute _attribute;       
+        private readonly HandlerOptions _options;
+        private readonly ILogger _logger;       
         private IReadOnlyDictionary<string, Type> _bindingContract;
-        private string _timerName;
+        private string _handlerName;
 
-        public TimerTriggerBinding(ParameterInfo parameter, TimerTriggerAttribute attribute, TimerSchedule schedule, TimersOptions options, ILogger logger, ScheduleMonitor scheduleMonitor)
+        public SessionTriggerBinding(ParameterInfo parameter, SessionTriggerAttribute attribute, HandlerOptions options, ILogger logger)
         {
             _attribute = attribute;
-            _schedule = schedule;
+        
             _parameter = parameter;
             _options = options;
             _logger = logger;
-            _scheduleMonitor = scheduleMonitor;
+          
             _bindingContract = CreateBindingDataContract();
 
             MethodInfo methodInfo = (MethodInfo)parameter.Member;
-            _timerName = string.Format("{0}.{1}", methodInfo.DeclaringType.FullName, methodInfo.Name);
+            _handlerName = string.Format("{0}.{1}", methodInfo.DeclaringType.FullName, methodInfo.Name);
         }
 
         public Type TriggerValueType
         {
             get
             {
-                return typeof(TimerInfo);
+                return typeof(SessionInfo);
             }
         }
 
@@ -54,18 +52,15 @@ namespace Microsoft.Azure.WebJobs.Extensions.ServiceBusSession.Bindings
 
         public async Task<ITriggerData> BindAsync(object value, ValueBindingContext context)
         {
-            TimerInfo timerInfo = value as TimerInfo;
-            if (timerInfo == null)
+            await Task.CompletedTask;
+            SessionInfo sessionInfo = value as SessionInfo;
+            if (sessionInfo == null)
             {
-                ScheduleStatus status = null;
-                if (_attribute.UseMonitor && _scheduleMonitor != null)
-                {
-                    status = await _scheduleMonitor.GetStatusAsync(_timerName);
-                }
-                timerInfo = new TimerInfo(_schedule, status);
+              
+                sessionInfo = new SessionInfo();
             }
 
-            IValueProvider valueProvider = new ValueProvider(timerInfo);
+            IValueProvider valueProvider = new ValueProvider(sessionInfo);
             IReadOnlyDictionary<string, object> bindingData = CreateBindingData();
 
             return new TriggerData(valueProvider, bindingData);
@@ -77,17 +72,17 @@ namespace Microsoft.Azure.WebJobs.Extensions.ServiceBusSession.Bindings
             {
                 throw new ArgumentNullException("context");
             }
-            return Task.FromResult<IListener>(new TimerListener(_attribute, _schedule, _timerName, _options, context.Executor, _logger, _scheduleMonitor));
+            return Task.FromResult<IListener>(new SessionListener(_attribute,  _handlerName, _options, context.Executor, _logger));
         }
 
         public ParameterDescriptor ToParameterDescriptor()
         {
-            TimerTriggerParameterDescriptor descriptor = new TimerTriggerParameterDescriptor
+            SessionTriggerParameterDescriptor descriptor = new SessionTriggerParameterDescriptor
             {
                 Name = _parameter.Name,
                 DisplayHints = new ParameterDisplayHints
                 {
-                    Description = string.Format("Timer executed on schedule ({0})", _schedule.ToString())
+                    Description = string.Format("New message received for handler:({0})", _handlerName)
                 }
             };
             return descriptor;
@@ -96,7 +91,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.ServiceBusSession.Bindings
         private IReadOnlyDictionary<string, Type> CreateBindingDataContract()
         {
             Dictionary<string, Type> contract = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
-            contract.Add("TimerTrigger", typeof(string));
+            contract.Add("SessionTrigger", typeof(string));
 
             return contract;
         }
@@ -104,7 +99,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.ServiceBusSession.Bindings
         private IReadOnlyDictionary<string, object> CreateBindingData()
         {
             Dictionary<string, object> bindingData = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
-            bindingData.Add("TimerTrigger", DateTime.Now.ToString());
+            bindingData.Add("SessionTrigger", DateTime.Now.ToString());
 
             return bindingData;
         }
@@ -120,7 +115,7 @@ namespace Microsoft.Azure.WebJobs.Extensions.ServiceBusSession.Bindings
 
             public Type Type
             {
-                get { return typeof(TimerInfo); }
+                get { return typeof(SessionInfo); }
             }
 
             public Task<object> GetValueAsync()
@@ -134,11 +129,11 @@ namespace Microsoft.Azure.WebJobs.Extensions.ServiceBusSession.Bindings
             }
         }
 
-        private class TimerTriggerParameterDescriptor : TriggerParameterDescriptor
+        private class SessionTriggerParameterDescriptor : TriggerParameterDescriptor
         {
             public override string GetTriggerReason(IDictionary<string, string> arguments)
             {
-                return string.Format("Timer fired at {0}", DateTime.Now.ToString("o"));
+                return string.Format("New message session received at {0}", DateTime.Now.ToString("o"));
             }
         }
     }
